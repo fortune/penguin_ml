@@ -110,4 +110,4 @@ new_prediction = rfc.predict(
 
 # 推論を実行し、結果を表示する。
 prediction_species = unique_penguin_mapping[new_prediction][0]
-st.write(f"We predict your penguin is of the {prediction_species} species")
+st.markdown(f"We predict your penguin is of the **{prediction_species}** species")

@@ -7,17 +7,20 @@ import streamlit as st
 
 st.title("Penguin Classifier")
 st.write(
-    "This app uses 6 inputs to predict the species of penguin using"
+    "This app uses 6 inputs to predict the species of penguin using "
     "a model built on the Palmer Penguins dataset. Use the form below"
     " to get started!"
 )
 
-# penguins_ml.py で作成したモデルファイルとマッピングファイルをロードする。
+# penguins_ml.py で作成したモデルファイルとマッピングファイル（DataFrame）をロードする。
 rf_pickle = open("random_forest_penguin.pickle", "rb")
 map_pickle = open("output_penguin.pickle", "rb")
 
 rfc = pickle.load(rf_pickle)
 unique_penguin_mapping = pickle.load(map_pickle)
+
+rf_pickle.close()
+map_pickle.close()
 
 # 確認用のデバッグ出力
 st.write(rfc)
@@ -37,7 +40,7 @@ body_mass = st.number_input("Body Mass (g)", min_value=0)
 
 # 確認用のデバッグ出力
 user_inputs = [island, sex, bill_length, bill_depth, flipper_length, body_mass]
-st.write(f"""the user inputs are {user_inputs}""".format())
+st.write(f"""the user inputs are {user_inputs}""")
 
 # 入力値をモデルが想定している形式に変換する
 island_biscoe, island_dream, island_torgerson = 0, 0, 0
@@ -70,10 +73,11 @@ new_prediction = rfc.predict(
         ]
     ]
 )
+# DataFrame から予測値（0 〜）に対応する行を抜き出している。
 prediction_species = unique_penguin_mapping[new_prediction][0]
 
 st.subheader("Predicting Your Penguin's Species:")
-st.write(f"We predict your penguin is of the {prediction_species} species")
+st.markdown(f"We predict your penguin is of the **{prediction_species}** species")
 
 # 保存済みの特徴量重要度のグラフのファイルを表示する。
 st.write(

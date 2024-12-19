@@ -8,6 +8,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 penguin_df = pd.read_csv("penguins.csv")
+
+#   species     island  bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g     sex  year
+# 0  Adelie  Torgersen            39.1           18.7              181.0       3750.0    male  2007
+# 1  Adelie  Torgersen            39.5           17.4              186.0       3800.0  female  2007
+# 2  Adelie  Torgersen            40.3           18.0              195.0       3250.0  female  2007
+# 3  Adelie  Torgersen             NaN            NaN                NaN          NaN     NaN  2007
+# 4  Adelie  Torgersen            36.7           19.3              193.0       3450.0  female  2007
 print(penguin_df.head())
 
 # NULL 値を含む行を削除
@@ -29,9 +36,24 @@ features = penguin_df[
 # 特徴量を one-hot-encoding して文字列を数値にし、カテゴライズする。
 features = pd.get_dummies(features)
 
+
+# Here are our output variables
+# 0    Adelie
+# 1    Adelie
+# 2    Adelie
+# 4    Adelie
+# 5    Adelie
+# Name: species, dtype: object
 print("Here are our output variables")
 print(output.head())
 
+# Here are our feature variables
+#    bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  island_Biscoe  island_Dream  island_Torgersen  sex_female  sex_male
+# 0            39.1           18.7              181.0       3750.0          False         False              True       False      True
+# 1            39.5           17.4              186.0       3800.0          False         False              True        True     False
+# 2            40.3           18.0              195.0       3250.0          False         False              True        True     False
+# 4            36.7           19.3              193.0       3450.0          False         False              True        True     False
+# 5            39.3           20.6              190.0       3650.0          False         False              True       False      True
 print("Here are our feature variables")
 print(features.head())
 
